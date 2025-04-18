@@ -36,9 +36,11 @@ jobs:
       # Runs 'make test-integration' in the ./ticketron directory due to defaults
       run: make test-integration
 
-    - name: Upload coverage to Codecov
+    - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v5
-      # No token needed here if CODECOV_TOKEN secret is set in GitHub repo settings
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        slug: karolswdev/ticketron
 
 
     - name: Run golangci-lint
