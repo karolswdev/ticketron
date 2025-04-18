@@ -1,0 +1,61 @@
+{
+  "formatters": {
+    "enable": [
+      "goimports"
+    ],
+    "exclusions": {
+      "generated": "lax",
+      "paths": [
+        ".*_test\\.go",
+        "third_party$",
+        "builtin$",
+        "examples$"
+      ]
+    },
+    "settings": {
+      "goimports": {
+        "local-prefixes": [
+          "github.com/karolswdev/ticketron"
+        ]
+      }
+    }
+  },
+  "linters": {
+    "default": "none",
+    "enable": [
+      "bodyclose",
+      "errcheck",
+      "gocritic",
+      "gocyclo",
+      "govet",
+      "misspell",
+      "staticcheck",
+      "unconvert",
+      "unused"
+    ],
+    "exclusions": {
+      "generated": "lax",
+      "paths": [
+        ".*_test\\.go",
+        "third_party$",
+        "builtin$",
+        "examples$"
+      ],
+      "presets": [
+        "comments",
+        "common-false-positives",
+        "legacy",
+        "std-error-handling"
+      ],
+      "rules": [
+        {
+          "linters": [
+            "errcheck"
+          ],
+          "path": "_test\\.go"
+        }
+      ]
+    }
+  },
+  "version": "2"
+}

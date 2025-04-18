@@ -1,0 +1,77 @@
+# .goreleaser.yml
+# Build customization
+before:
+  hooks:
+    - go mod tidy
+    - go generate ./...
+builds:
+  - id: ticketron
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    main: ./main.go
+    binary: ticketron
+    ldflags:
+      - -s -w -X github.com/karolhor/ticketron/cmd.version={{.Version}} -X github.com/karolhor/ticketron/cmd.commit={{.Commit}} -X github.com/karolhor/ticketron/cmd.date={{.Date}} -X github.com/karolhor/ticketron/cmd.builtBy=goreleaser
+archives:
+  - format: tar.gz
+    # this name template makes the OS and Arch compatible with the results of uname.
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    files:
+      - LICENSE
+      - README.md
+      - docs/*
+  - format: zip
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    files:
+      - LICENSE
+      - README.md
+      - docs/*
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^chore:'
+      - Merge pull request
+      - Merge branch
+# GitHub Release configuration
+release:
+  # If set to true, will not auto-publish the release.
+  # Available only for GitHub and Gitea.
+  draft: true
+  prerelease: auto
+  # You can change the name of the GitHub release.
+  # Default is ``{{.Tag}}``
+  # name_template: "{{.ProjectName}}-v{{.Version}}"
+  # Header for the release body. Filled only if it's not empty.
+  # Defaults to empty.
+  # header: |
+  #   Awesome project {{.Tag}} is out!
+  # Footer for the release body. Filled only if it's not empty.
+  # Defaults to empty.
+  # footer: |
+  #   Use it wisely!
+  # Optional: Add extra files to the release, like binaries that were
+  # built outside GoReleaser or documentation / examples.
+  # extra_files:
+  # - glob: ./path/to/file.zip
+  # - glob: ./path/to/some/other/file.txt
+  #   name_template: "{{ .ProjectName }}_{{ .Version }}_manual_artifact.txt"
+  #   # Optional: Set the mode of the file.
+  #   mode: 0644
+  #   # Optional: Set the modification time of the file.
+  #   mtime: 2023-01-01T10:00:00Z
+  # Optional: Disable the generation of the source code archive.
+  # disable: false

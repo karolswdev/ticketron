@@ -1,0 +1,43 @@
+run:
+  # timeout for analysis, e.g. 3m
+  timeout: 3m
+linters-settings:
+  goimports:
+    # put imports beginning with prefix after 3rd-party packages;
+    # it's a comma-separated list of prefixes
+    local-prefixes: github.com/karolswdev/ticketron
+  # Add other linter-specific settings if needed
+
+linters:
+  # please, do not use `enable-all`: it's deprecated and will be removed soon.
+  # inverted configuration with `enable-all` and `disable` is not scalable during updates of golangci-lint
+  disable-all: true
+  enable:
+    - govet
+    - errcheck
+    - staticcheck
+    - unused
+    - gosimple
+    - stylecheck
+    - goimports
+    - gocritic
+    - gocyclo
+    - misspell
+    - bodyclose
+    - unconvert
+    # Consider adding other useful linters like:
+    # - ineffassign
+    # - typecheck
+    # - revive
+
+issues:
+  # skip files matching the following regexps, e.g. vendor/
+  exclude-files:
+    - ".*_test\\.go" # Often test files have different style requirements
+  # Excluding configuration per-path, per-linter, per-text and per-source
+  exclude-rules:
+    # Exclude some linters from running on tests files.
+    - path: _test\.go
+      linters:
+        - errcheck # Often okay to ignore errors in tests for brevity
+        # Add other linters to disable for tests if necessary
