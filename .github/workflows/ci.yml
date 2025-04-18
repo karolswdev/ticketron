@@ -22,7 +22,7 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v5
       with:
-        go-version: '1.22' # Use a recent Go version
+        go-version: '1.23.8' # Use a recent Go version
 
     - name: Build
       # Runs 'go build ./...' in the ./ticketron directory due to defaults
