@@ -22,23 +22,22 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v5
       with:
-        go-version: '1.23.8' # Use a recent Go version
+        go-version: '1.23.8' # Use Go version from go.mod
 
     - name: Build
-      # Runs 'go build ./...' in the ./ticketron directory due to defaults
-      run: go build ./...
+      # Runs 'make build' in the ./ticketron directory due to defaults
+      run: make build
 
     - name: Test
-      # Runs 'go test ./...' in the ./ticketron directory due to defaults
-      run: go test -race -coverprofile=coverage.out -covermode=atomic ./...
+      # Runs 'make test' in the ./ticketron directory due to defaults
+      run: make test
 
     - name: Run Integration Tests
-      # Runs integration tests tagged with 'integration'
-      # Excludes coverage reporting for integration tests for simplicity
-      run: go test -tags=integration -v ./... # Add -v for verbose output
+      # Runs 'make test-integration' in the ./ticketron directory due to defaults
+      run: make test-integration
 
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v4
+      uses: codecov/codecov-action@v5
       # No token needed here if CODECOV_TOKEN secret is set in GitHub repo settings
 
 
@@ -55,5 +54,5 @@ jobs:
         # only-new-issues: true
 
     - name: Run govulncheck
-      # Runs 'govulncheck ./...' in the ./ticketron directory due to defaults
-      run: govulncheck ./...
+      # Runs 'make vulncheck' in the ./ticketron directory due to defaults
+      run: make vulncheck
