@@ -353,4 +353,6 @@ func init() {
 	searchCmd.Flags().String("jql", "", "JQL query string")
 	searchCmd.Flags().Int("max-results", 20, "Maximum number of results to return")
 	searchCmd.Flags().StringP("output-fields", "f", "", "Comma-separated fields to include in JSON/YAML/TSV output (e.g., key,fields.summary,fields.status.name)") // Updated help text
+
+	rootCmd.AddCommand(searchCmd)
 }
