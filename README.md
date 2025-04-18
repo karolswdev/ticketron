@@ -24,7 +24,7 @@ Ticketron (`tix`) simplifies interacting with JIRA directly from your command li
 
 ### Prerequisites
 
-*   **Go:** Version 1.24.0 or later.
+*   **Go:** Version 1.23.8 or later.
 *   **jira-mcp-server:** Access to a running instance of the [jira-mcp-server](https://github.com/karolswdev/ticketron/tree/main/jira-mcp/jira-mcp-server) (required for JIRA communication).
 *   **OpenAI API Key:** Required for the LLM features.
 *   **Make:** Required for development tasks (building, testing, linting).
